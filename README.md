@@ -1,2 +1,49 @@
-# korea-international-student-post-filtering
-Pipeline and experiments for filtering Reddit dumps into high-precision Korea international student question posts
+# Reddit 2025년 1월~12월 데이터 전처리 파이프라인 구축
+
+- 현재 1~3월 dump 데이터만 구글 드라이브에 업로드해둔 상태입니다.
+[Reddit 2025년 1월~3월 데이터](https://drive.google.com/drive/folders/11_0to1lAl7piqGx-qRSl6U_7mlPKgkqn?usp=drive_link)
+
+## 목적
+
+한국 유학생/교환학생이 실제로 겪는 행정, 생활, 학교 적응 등의 질문 데이터를 모으고 싶습니다.
+
+목표는 다음과 같습니다.
+
+- 한국 유학생이 실제로 자주 묻는 질문 주제 파악
+- 향후 FAQ / 검색 / 추천 / AI 응답 시스템 설계에 활용
+- 평가 데이터셋 또는 고정밀 후보셋 구축의 출발점으로 활용
+
+하지만 Reddit raw dump에는 다음과 같은 문제가 있습니다.
+
+- 한국과 관련은 있지만 유학생 질문이 아닌 글이 많음
+- `studyAbroad`에는 한국과 무관한 타국 유학 글이 많음
+- `korea`, `korean`에는 일반 문화/정치/잡담 글이 많음
+- `[removed]`, `[deleted]`, 내용 없는 글 등 노이즈가 많음
+
+---
+
+## 현재 상태
+
+Reddit dump(.zst)에서 관심 서브레딧(`studyabroad`, `teachinginkorea`, `korea`, `korean`)만 빠르게 추출하는  
+**1차 필터링을 완료**했습니다.
+
+- 결과물: `filtered/{month}/submissions_target.jsonl`
+- 목적: 전체 dump를 줄여 **후속 정제를 위한 후보셋 확보**
+
+⚠️ 현재 데이터는 “완성된 데이터셋”이 아니라  
+노이즈가 많이 포함된 **1차 후보셋**입니다.
+
+---
+
+## 이 레포의 방향
+
+이 레포는 단순 데이터 공유가 아니라,  
+“고정밀 유학생 질문 데이터셋을 만들기 위한 파이프라인을 함께 발전시키는 공간”입니다.
+
+다음과 같은 방식으로 협업을 기대하고 있습니다.
+
+- 더 나은 필터링 코드 공유 (rule-based / heuristic / LLM 등)
+- 노이즈 유형 정의 및 제거 전략 제안
+- 질문글 판별 로직 개선
+- 한국 유학생 맥락 필터링 개선
+- 분석용 notebook / 검수 방법 공유
